@@ -1,0 +1,38 @@
+[
+  {
+    "input": "step1 test/in/basic/00_sample.csv",
+    "output": "out/basic/00_sample1.csv",
+    "description": "[基本的な統計量の算出] 平均値、分散などの基本的な統計量の計算ができる",
+    "description_en": "[Basic Statistics] Basic statistics such as means and variances are calculated."
+  },
+  {
+    "input": "step2 test/in/basic/00_sample.csv",
+    "output": "out/basic/00_sample2.csv",
+    "description": "[データの前処理] 欠損値の処理や正規化など、データの前処理ができる",
+    "description_en": "[Data Preprocessing] Data preprocessing operations such as filling in missing values and normalization are implemented."
+  },
+  {
+    "input": "step3 test/in/basic/00_sample.csv test/in/basic/00_sample_pred.csv",
+    "output": "out/basic/00_sample3.csv",
+    "description": "[基本的な予測器の作成] 最小二乗法を用いてデータの予測モデルを実際に作成することができる",
+    "description_en": "[Basic Predictor] A sales predictor using the least-squares method is implemented."
+  },
+  {
+    "input": "step1 test/in/basic/10_test.csv",
+    "output": "out/basic/10_test1.csv",
+    "description": "[基本的な統計量の算出] 平均値、分散などの基本的な統計量の計算ができる",
+    "description_en": "[Basic Statistics] Basic statistics such as means and variances are calculated."
+  },
+  {
+    "input": "step2 test/in/basic/10_test.csv",
+    "output": "out/basic/10_test2.csv",
+    "description": "[データの前処理] 欠損値の処理や正規化など、データの前処理ができる",
+    "description_en": "[Data Preprocessing] Data preprocessing operations such as filling in missing values and normalization are implemented."
+  },
+  {
+    "input": "step3 test/in/basic/10_test.csv test/in/basic/10_test_pred.csv",
+    "output": "out/basic/10_test3.csv",
+    "description": "[基本的な予測器の作成] 最小二乗法を用いてデータの予測モデルを実際に作成することができる",
+    "description_en": "[Basic Predictor] A sales predictor using the least-squares method is implemented."
+  }
+]
