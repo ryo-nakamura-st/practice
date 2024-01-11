@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-g",
+        "${workspaceFolder}/src/main.cpp",
+        "-std=c++14",
+        "-I/Users/nakamura.ryo/anaconda3/envs/C++_py/include/python3.12",
+        "-I/Users/nakamura.ryo/anaconda3/envs/C++_py/lib/python3.12/site-packages/numpy/core/include",
+        "-L/Users/nakamura.ryo/anaconda3/envs/C++_py/lib",
+        "-lpython3.12",
+        "-o",
+        "${workspaceFolder}/a.out"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
