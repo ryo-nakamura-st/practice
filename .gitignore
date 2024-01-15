@@ -1,0 +1,29 @@
+# Compiled object files
+*.o
+*.so
+*.a
+*.lo
+
+# Compiled executables
+a.out
+
+# Build directories
+bin/
+build/
+dist/
+
+# VSCode configurations
+.vscode/
+a.out.dSYM
+
+# macOS system files
+.DS_Store
+
+# Thumbnails
+Thumbs.db
+
+# Files that may appear during crashes
+core
+
+# Log files
+*.log

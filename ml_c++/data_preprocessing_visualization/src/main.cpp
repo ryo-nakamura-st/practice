@@ -13,6 +13,25 @@ enum IrisClass {
     Iris_unknown     // 3
 };
 
+// use template to accomadate multiple types(Int, double, fraction)
+template <typename T>
+double Mean(const std::vector<T>& data)
+{
+    return std::accumulate(data.begin(), data.end(), 0.0) / data.size();
+}
+
+template <typename T>
+double StDev(const std::vector<T>& data){
+    double mean = Mean(data);
+    /*
+    std::inner_product -> usually it's used for dot product calculation, meaning different vector
+    but this case, it's for square calculation, using same data, data.begin for first and third arg
+    */
+    auto sum_sq = std::inner_product(data.begin(), data.end(), data.begin(), 0.0, std::plus<>(),
+    [mean](const T &a, const T &b){ return (a - mean) * (b - mean); });
+    return std::sqrt(sum_sq / data.size());
+}
+
 std::vector<std::vector<float>> Read_Iris_Dataset(void)
 {
     std::ifstream myfile("../data/in/iris.data");
@@ -76,6 +95,15 @@ int main() {
         dataset[0].begin(), dataset[0].end(), [](float &value)
         { return value >= 5.8; },
         5.8);
+
+    // std::cout << dataset[0] << std::endl;
+    double sepal_length_mean = Mean(dataset[0]);
+    double sepal_length_stdev = StDev(dataset[0]);
+    // std::cout << sepal_length_mean << std::endl;
+    // std::cout << sepal_length_stdev << std::endl;
+    std::for_each(dataset[0].begin(), dataset[0].end(), [&](float &x)
+                  { x = (x - sepal_length_mean) / sepal_length_stdev; });
+
     plt::plot(dataset[0], {{"label", "sepal_length"}});
     plt::plot(dataset[1],{ {"label", "sepal_width"}});
     plt::plot(dataset[2],{ {"label", "petal_length"}});
