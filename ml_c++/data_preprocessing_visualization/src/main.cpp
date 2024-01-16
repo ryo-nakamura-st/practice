@@ -76,27 +76,52 @@ std::vector<std::vector<float>> Read_Iris_Dataset(void)
             {
                 iris_class_f = Iris_unknown;
             }
+            temp_iris_class.push_back(iris_class_f);
         }
         Iris_Dataset.push_back(temp_sepal_len);
         Iris_Dataset.push_back(temp_sepal_wid);
         Iris_Dataset.push_back(temp_petal_len);
         Iris_Dataset.push_back(temp_petal_wid);
-    }else
+        Iris_Dataset.push_back(temp_iris_class);
+    }
+    else
     {
         std::cout << "Unable to open file";
     }
     return Iris_Dataset;
 }
 
+std::vector<std::vector<float>> split_by_class(std::vector<std::vector<float>>& dataset, float data_class)
+{
+    std::vector<std::vector<float>> temp_out;
+    std::vector<std::vector<float>> out_vector;
+
+    int counter = 0;
+    std::for_each(dataset[4].begin(), dataset[4].end(), [&](float &item_class)
+                  {
+                    if(item_class = data_class){
+                        std::vector<float> temp;
+                        temp.push_back(dataset[0][counter]);
+                        temp.push_back(dataset[1][counter]);
+                        temp.push_back(dataset[2][counter]);
+                        temp.push_back(dataset[3][counter]);
+                        temp.push_back(dataset[4][counter]);
+                        temp_out.push_back(temp);
+                    }
+                    counter++; });
+}
+
 namespace plt = matplotlibcpp;
 int main() {
     std::vector<std::vector<float>> dataset =  Read_Iris_Dataset();
+    split_by_class(dataset, Iris_setosa);
     std::replace_if(
         dataset[0].begin(), dataset[0].end(), [](float &value)
         { return value >= 5.8; },
         5.8);
 
     // std::cout << dataset[0] << std::endl;
+
     double sepal_length_mean = Mean(dataset[0]);
     double sepal_length_stdev = StDev(dataset[0]);
     // std::cout << sepal_length_mean << std::endl;
