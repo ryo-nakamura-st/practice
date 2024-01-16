@@ -91,6 +91,23 @@ std::vector<std::vector<float>> Read_Iris_Dataset(void)
     return Iris_Dataset;
 }
 
+
+template <typename T>
+std::vector<std::vector<T>> vector_Transpose(std::vector<std::vector<T>>& input_vector)
+{
+    if(input_vector.size()>0){
+        std::vector<std::vector<T>> output_vector(input_vector[0].size(), std::vector<T>(input_vector.size()));
+        for (int i = 0; i < input_vector.size(); i++){
+            for (int j = 0; j < input_vector[0].size(); j++)
+            {
+                output_vector[j][i] = input_vector[i][j];
+            }
+        }
+        return output_vector;
+    }
+    return input_vector;
+}
+
 std::vector<std::vector<float>> split_by_class(std::vector<std::vector<float>>& dataset, float data_class)
 {
     std::vector<std::vector<float>> temp_out;
@@ -99,7 +116,7 @@ std::vector<std::vector<float>> split_by_class(std::vector<std::vector<float>>& 
     int counter = 0;
     std::for_each(dataset[4].begin(), dataset[4].end(), [&](float &item_class)
                   {
-                    if(item_class = data_class){
+                    if(item_class == data_class){
                         std::vector<float> temp;
                         temp.push_back(dataset[0][counter]);
                         temp.push_back(dataset[1][counter]);
@@ -109,12 +126,14 @@ std::vector<std::vector<float>> split_by_class(std::vector<std::vector<float>>& 
                         temp_out.push_back(temp);
                     }
                     counter++; });
+    out_vector = vector_Transpose(temp_out);
+    return out_vector;
 }
 
 namespace plt = matplotlibcpp;
 int main() {
     std::vector<std::vector<float>> dataset =  Read_Iris_Dataset();
-    split_by_class(dataset, Iris_setosa);
+    std::vector<std::vector<float>> Iris_setosa_vec = split_by_class(dataset, Iris_setosa);
     std::replace_if(
         dataset[0].begin(), dataset[0].end(), [](float &value)
         { return value >= 5.8; },
@@ -128,6 +147,11 @@ int main() {
     // std::cout << sepal_length_stdev << std::endl;
     std::for_each(dataset[0].begin(), dataset[0].end(), [&](float &x)
                   { x = (x - sepal_length_mean) / sepal_length_stdev; });
+
+
+    std::cout<< "Before transpose, Data Size was ( " << dataset.size() << " , "  <<dataset[0].size()<<" )" <<std::endl;
+    dataset = vector_Transpose(dataset);
+    std::cout<< "After transpose, Data Size is ( " << dataset.size() << " , "  <<dataset[0].size()<<" )" <<std::endl;
 
     plt::plot(dataset[0], {{"label", "sepal_length"}});
     plt::plot(dataset[1],{ {"label", "sepal_width"}});
