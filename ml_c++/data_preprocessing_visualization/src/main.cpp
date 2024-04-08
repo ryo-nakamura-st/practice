@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <random>
 #include "matplotlibcpp.h"
 
 enum IrisClass {
@@ -143,14 +144,16 @@ int main() {
 
     double sepal_length_mean = Mean(dataset[0]);
     double sepal_length_stdev = StDev(dataset[0]);
-    // std::cout << sepal_length_mean << std::endl;
-    // std::cout << sepal_length_stdev << std::endl;
+    // easy way to make the seed, out of current time
     std::for_each(dataset[0].begin(), dataset[0].end(), [&](float &x)
                   { x = (x - sepal_length_mean) / sepal_length_stdev; });
 
-
     std::cout<< "Before transpose, Data Size was ( " << dataset.size() << " , "  <<dataset[0].size()<<" )" <<std::endl;
+    std::random_device rd;
+    std::mt19937 g(rd());
+
     dataset = vector_Transpose(dataset);
+    std::shuffle(dataset.begin(), dataset.end(),g);
     std::cout<< "After transpose, Data Size is ( " << dataset.size() << " , "  <<dataset[0].size()<<" )" <<std::endl;
 
     plt::plot(dataset[0], {{"label", "sepal_length"}});
