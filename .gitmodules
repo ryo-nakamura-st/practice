@@ -1,0 +1,3 @@
+[submodule "PDL_4_coders/fastbook"]
+	path = PDL_4_coders/fastbook
+	url = git@github.com:fastai/fastbook.git
